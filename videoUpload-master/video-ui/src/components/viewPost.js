@@ -37,6 +37,60 @@ const ViewPost = () => {
     }
   }
 
+  const [tableData, setTableData] = useState([]);
+
+  const [byType, setByType] = useState([]);
+  const [byWarranty, setByWarranty] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchNum, setSearchNum] = useState();
+
+  
+   // Function to fetch table data from the API
+   const fetchTableData = async () => {
+    try {
+      const response = await axios.get(BASE_URL + `/name/${searchTerm}`);
+      setTableData(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error('Error fetching table data:', error);
+    }
+  };
+
+  const fetchByType = async () => {
+    try {
+      const response = await axios.get(BASE_URL + `/type/${searchTerm}`);
+      setByType(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error('Error fetching table data:', error);
+    }
+  };
+
+  const fetchByWarranty = async () => {
+    try {
+      const response = await axios.get(BASE_URL + `/isExp/${searchNum}`);
+      setByWarranty(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error('Error fetching table data:', error);
+    }
+  };
+
+  // Fetch table data when the component mounts or when the search term changes
+  useEffect(() => {
+    fetchByWarranty();
+  }, [searchTerm]);
+
+  // Fetch table data when the component mounts or when the search term changes
+  useEffect(() => {
+    fetchTableData();
+  }, [searchTerm]);
+
+  // Fetch table data when the component mounts or when the search term changes
+  useEffect(() => {
+    fetchByType();
+  }, [searchTerm]);
+
   return (
     <div>
       <Container className="mb-2 p-3">
@@ -96,6 +150,118 @@ const ViewPost = () => {
               ))}
           </Row>
         </Card>
+        <Container>
+          <h1>Search Products By Name</h1>
+          <div>
+      <input
+        type="text"
+        placeholder="Search..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+      <table class="table">
+    
+        <thead margin="6px">
+          <tr margin="6px">
+            <th margin="6px">Name </th>
+            <th margin="6px">place </th>
+            <th margin="6px">type </th>
+            <th margin="6px">warranty </th>
+           
+            {/* Add more table headers for other fields */}
+          </tr>
+          </thead>
+        <tbody>
+          {tableData.map((row, index) => (
+            <tr key={index}>
+              <td margin="26px" ><strong style={{color:"red"}}>{row.name}</strong></td>
+              <td margin="6px" ><strong style={{color:"red"}}>{row.place}</strong></td>
+              <td margin="6px" ><strong style={{color:"red"}}>{row.type}</strong></td>
+              <td margin="6px" ><strong style={{color:"red"}}>{row.warranty}</strong></td>
+              {/* Add more table cells for other fields */}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      </div>
+
+        </Container>
+
+
+        <Container>
+          <h1>Search Products By Type</h1>
+          <div>
+      <input
+        type="text"
+        placeholder="Search..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+      <table class="table">
+    
+        <thead margin="6px">
+          <tr margin="6px">
+            <th margin="6px">Name </th>
+            <th margin="6px">place </th>
+            <th margin="6px">type </th>
+            <th margin="6px">warranty </th>
+           
+            {/* Add more table headers for other fields */}
+          </tr>
+          </thead>
+        <tbody>
+          {byType.map((row, index) => (
+            <tr key={index}>
+              <td margin="26px" ><strong style={{color:"red"}}>{row.name}</strong></td>
+              <td margin="6px" ><strong style={{color:"red"}}>{row.place}</strong></td>
+              <td margin="6px" ><strong style={{color:"red"}}>{row.type}</strong></td>
+              <td margin="6px" ><strong style={{color:"red"}}>{row.warranty}</strong></td>
+              {/* Add more table cells for other fields */}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      </div>
+
+        </Container>
+
+
+        <Container>
+          <h1>Search Products By Warranty</h1>
+          <div>
+      <input
+      type="integer"
+        placeholder="Search..."
+        value={searchNum}
+        onChange={(e) => setSearchNum(e.target.value)}
+      />
+      <table class="table">
+    
+        <thead margin="6px">
+          <tr margin="6px">
+            <th margin="6px">Name </th>
+            <th margin="6px">place </th>
+            <th margin="6px">type </th>
+            <th margin="6px">warranty </th>
+           
+            {/* Add more table headers for other fields */}
+          </tr>
+          </thead>
+        <tbody>
+          {byWarranty.map((row, index) => (
+            <tr key={index}>
+              <td margin="26px" ><strong style={{color:"red"}}>{row.name}</strong></td>
+              <td margin="6px" ><strong style={{color:"red"}}>{row.place}</strong></td>
+              <td margin="6px" ><strong style={{color:"red"}}>{row.type}</strong></td>
+              <td margin="6px" ><strong style={{color:"red"}}>{row.warranty}</strong></td>
+              {/* Add more table cells for other fields */}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      </div>
+
+        </Container>
       </Container>
     </div>
   );
