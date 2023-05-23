@@ -43,6 +43,7 @@ const ViewPost = () => {
   const [byWarranty, setByWarranty] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchNum, setSearchNum] = useState();
+  const [searchByType,setSearchByType] =useState('');
 
   
    // Function to fetch table data from the API
@@ -58,7 +59,7 @@ const ViewPost = () => {
 
   const fetchByType = async () => {
     try {
-      const response = await axios.get(BASE_URL + `/type/${searchTerm}`);
+      const response = await axios.get(BASE_URL + `/type/${searchByType}`);
       setByType(response.data);
       console.log(response.data);
     } catch (error) {
@@ -79,7 +80,7 @@ const ViewPost = () => {
   // Fetch table data when the component mounts or when the search term changes
   useEffect(() => {
     fetchByWarranty();
-  }, [searchTerm]);
+  }, [searchNum]);
 
   // Fetch table data when the component mounts or when the search term changes
   useEffect(() => {
@@ -89,7 +90,7 @@ const ViewPost = () => {
   // Fetch table data when the component mounts or when the search term changes
   useEffect(() => {
     fetchByType();
-  }, [searchTerm]);
+  }, [searchByType]);
 
   return (
     <div>
@@ -194,8 +195,8 @@ const ViewPost = () => {
       <input
         type="text"
         placeholder="Search..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        value={searchByType}
+        onChange={(e) => setSearchByType(e.target.value)}
       />
       <table class="table">
     
