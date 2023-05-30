@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.product.product.entity.UrlSort;
-import com.product.product.service.UrlSortRepo;
+import com.product.product.repository.UrlSortRepo;
 
 @RestController
 @RequestMapping("/urls")
@@ -21,6 +21,8 @@ public class UrlSortnerController {
 	
 	@Autowired
 	private UrlSortRepo repo;
+	
+	
 	
 	@PostMapping
 	public UrlSort saveUrls(@RequestBody UrlSort u) {
@@ -50,5 +52,7 @@ public class UrlSortnerController {
 	public List<UrlSort> getAllUrls(){
 		return repo.findAll();
 	}
+	
+
 
 }

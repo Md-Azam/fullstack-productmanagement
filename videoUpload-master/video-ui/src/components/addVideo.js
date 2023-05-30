@@ -164,7 +164,8 @@ const [getUrl,setGetUrl] = useState([])
                 />
               </div>
 
-              <Container className="text-center p-2">
+              <Container className="text-center p-2
+              ">
                 <Button className="rounded-2 mb-2 " color="primary">
                   {" "}
                   Submit
@@ -217,42 +218,35 @@ const [getUrl,setGetUrl] = useState([])
     </Container>
 
     </Container>
+       <Container>
         <Card>
-          <Row>
-            {loading &&
-              getUrl.map((post) => (
-                <Col sm={12} md={6} lg={3} key={post.id}>
-                  <Card className="my-3 p-3 rounded h-90">
-                    <Card.Header></Card.Header>
-                    <Card.Body>
-
-
-                      <Card.Title>URL Name: {post.name}</Card.Title>
-                      <Card.Subtitle>
-                        <Card.Text>
-                          <strong style={{ color: "blue" }}>Original Url: {post.originalUrl}</strong>
-                        </Card.Text>
-
-                        <Card.Text>
-                          <strong style={{ color: "green" }}>Product place: {post.sortedUrl}</strong>
-                        </Card.Text>
-
-                      
-                      </Card.Subtitle>
-
-
-                     
-                    </Card.Body>
-                  </Card>
-                </Col>
-              ))}
-          </Row>
+          <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          {getUrl.map(item => (
+            <tr key={item.id}>
+              <td>{item.name}</td>
+              <td style={{color:"blue"}}>{item.originalUrl}</td>
+              <td>{item.sortedUrl}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      
+            
+        
         </Card>
+        </Container>
         <Container>
     </Container>
     </div>
     
   );
 };
-
 export default AddVideo;
