@@ -24,7 +24,6 @@ public class CategoryController {
 	@PostMapping
 	public Category saveCategory(@RequestBody Category category) {
 		return categoryService.addCategory(category);
-		
 	}
 	
 	@GetMapping("/{cId}")
